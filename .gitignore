@@ -10,6 +10,9 @@ media
 /worksheetsite/settings.py
 /fill_the_blanks/migrations
 
+# Getting rid of uninformative js and css extensions
+/fill_the_blanks/static
+/static
 
 # Backup files # 
 *.bak 
