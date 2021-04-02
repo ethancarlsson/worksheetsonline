@@ -1,0 +1,12 @@
+{% extends 'fill_the_blanks/base.html' %}
+{% block 'body' %}
+{% load i18n static %}
+
+
+You're logged out now!
+
+
+<p><a href="{% url 'login' %}">{% translate 'Log in again' %}</a></p>
+
+
+{% endblock %}

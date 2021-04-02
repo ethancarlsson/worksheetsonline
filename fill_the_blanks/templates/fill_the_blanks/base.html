@@ -1,0 +1,96 @@
+<!doctype html>
+{% load static %}
+{% load get_profile %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <title>Your online worksheets</title>
+  </head>
+
+  <nav class="navbar navbar-expand-lg navbar-light" id="app-navbar" style="background-color: rgb(255, 255, 255);">
+    <a class="navbar-brand" href="https://worksheetsonline.herokuapp.com/" ><img src="{% static 'favicon-32x32.png' %}">
+    <span class="navbar-text"> Your online worksheets </span></a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+      </span>
+    </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      {% block 'navbar' %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav ml-auto">
+
+          {% if user.is_authenticated %}
+          <li class="nav-item active">
+              <a class="btn btn-link" href="/{% profile_url user %}">Your worksheets</a>
+          </li>
+
+
+          <li class="nav-item active">
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link"> Logout </button>
+            </form>
+              
+          </li>
+
+          {% else %}
+          <li class="nav-item active">
+            <a class="btn btn-link" href="{% url 'login' %}">Log In</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="btn btn-link" href="{% url 'signup' %}">Sign Up</a>
+          </li>
+
+          {% endif %}
+            
+        </ul>
+      </div>
+{% endblock %}
+
+
+    </div>
+
+  </nav>
+  <div style="background-color: #f0f0f063; padding:3%">
+  
+  <div class="container">
+
+  <body class="order-2 p-2 bd-highlight" data-gr-c-s-loaded="true">
+
+    {% block 'body' %}
+    {% endblock %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'jquery-3.5.1.min.js' %} "></script>
+
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+  </body>
+</div>
+</div>
+  
+  <footer class="d-flex flex-column bd-highlight mb-3">
+    <div class="container">
+      {% block 'footer' %}
+      {% if user.is_authenticated %}
+        <span class="text-muted">You are logged in with <strong>{{ user }}</strong> </span>
+      {% endif %}
+      {% endblock %}
+    </div>
+  </footer>
+
+</html>

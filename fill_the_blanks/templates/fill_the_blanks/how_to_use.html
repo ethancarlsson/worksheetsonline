@@ -1,0 +1,38 @@
+{% extends 'fill_the_blanks/base.html' %}
+{% block 'body' %}
+{% load static %}
+
+<p class="lead" style="font-size: 35px;">Move your fill in the blank worksheets online</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div style="padding: 4%;">
+                    <h6 class="card-title" style="padding: 1%;">1. Find your worksheet and copy its contents</h6>
+                    <p class="card-body" style="padding: 1%;">It could be a word or a pdf, just as long as its a fill in the blanks style worksheet.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div style="padding: 4%;">
+                    <h6 class="card-title" style="padding: 1%;">2. Paste it below and press "submit"</h6>
+                    <p class="card-body" style="padding: 1%;">This app will transform all the "blanks" into boxes that students can fill in</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div style="padding: 4%;">
+                    <h6 class="card-title" style="padding: 1%;">3. Fill in the answers and send it to your students</h6>
+                    <p class="card-body" style="padding: 1%;">This way you won't have to mark the students later and they will get immediate feedback.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block 'form' %}
+{% endblock %}
+
+{% endblock %}

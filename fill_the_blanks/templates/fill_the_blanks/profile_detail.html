@@ -1,0 +1,26 @@
+{% extends 'fill_the_blanks/base.html' %}
+{% block 'body' %}
+
+
+
+<h2>Your worksheets</h2>
+<ul class="list-group">
+
+{% for worksheet in worksheets %}
+
+    <li class="list-group-item">
+
+        <form method="POST">
+        {% csrf_token %}
+        <a href="/{{worksheet.pk}}/{{worksheet.slug}}/">{{worksheet}}</a>
+
+            <a class="btn btn-primary" href="/{{worksheet.pk}}/{{worksheet.slug}}/edit/"> Edit </a>
+            <button class="btn btn-danger" type="submit" name="delete" value="{{worksheet.pk}}"> Delete </button>
+        </form>
+    </li>
+
+
+{% endfor %}
+</ul>
+
+{% endblock %}

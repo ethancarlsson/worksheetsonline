@@ -1,0 +1,19 @@
+{% extends 'fill_the_blanks/how_to_use.html' %}
+{% block 'form' %}
+{% load crispy_forms_tags %}
+
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+</form>
+
+{% else %}
+<h5>Sign up now to try it yourself</h5>
+<a class="btn btn-primary" href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+
+
+
+{% endblock %}

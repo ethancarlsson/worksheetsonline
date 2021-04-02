@@ -1,0 +1,21 @@
+{% extends 'fill_the_blanks/base.html' %}
+{% block 'navbar' %}
+<div></div>
+{% endblock %}
+
+{% block 'body' %}
+<h1>{{ object.name }}</h1>    
+<form method="POST" actions="#">
+    {% csrf_token %}
+    <p><b>Fill in your name here: </b><input type="text" id="Student Name" name="Student Name" required></p>
+    {{ object.worksheet_text | safe | linebreaks }}
+    <Button class="btn btn-primary" type="submit" value="Submit answers"> Upload your answers </Button>
+
+</form>
+
+
+{% endblock %}
+
+{% block 'footer' %}
+ <div></div>
+{% endblock %}

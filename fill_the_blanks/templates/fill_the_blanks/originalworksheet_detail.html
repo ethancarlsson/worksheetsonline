@@ -1,0 +1,86 @@
+{% extends 'fill_the_blanks/base.html' %}
+{% block 'body' %}
+
+
+<div class="row">
+        <h1>{{ object.name }}</h1> 
+        <a href="/{{object.pk}}/{{object.slug}}/edit/"> Edit </a>
+        <div class="container">
+        <form method="post" actions="#">
+            {% csrf_token %} 
+            {{ object.worksheet_text | safe | linebreaks }}
+            {% if user.is_authenticated %}
+                <Button class="btn btn-primary" type="submit" value="Submit answers"> Upload answers </Button>
+                <p> Copy this link and send it to your students: 
+                    <i>
+                        <input readonly type="text" value="https://worksheetsonline.herokuapp.com/{{object.pk}}/{{object.slug}}/student/" class="form-control">
+                    </i>
+                </p>
+                
+            {% else %}
+                <p><a href="{% url 'login' %}">Log in</a> to make an answer sheet and send the worksheet to you students.</p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% if object.answers %}
+
+<div class="container-fluid">
+<h3 style="padding-top: 3%;">Corrections</h3>
+
+<div class="row" style="padding-bottom: 3%;">
+    <div class="col-md-4">
+        <div class="card body shadow">
+            <form method="post" actions="#">
+            {% csrf_token %} 
+
+            <h3 style="text-align: center;">Answer sheet</h3>
+            <ol>
+                {% for answer, correct, incorrect in teacher_answers %}
+                <li>
+                    <input type="text" value="{{answer}}" id="{{ forloop.counter }}" name="{{ forloop.counter }}">
+                    <span class="badge badge-success badge-pill">{{correct}}</span>
+                    <span class="badge badge-danger badge-pill">{{incorrect}}</span>
+                </li>
+                {% endfor %}
+            </ol>
+            <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <Button class="btn btn-primary" type="submit" value="Update answers"> Update answers </Button>
+    
+                    </li>
+            </ul>
+        </form>
+        </div>
+    </div>
+
+        {% for student in student_sheets %}
+
+        <div class="col-md-4">
+            <div class="card body shadow">
+                    <div style="padding: 4%;">
+
+                <a href="https://worksheetsonline.herokuapp.com/{{student.pk}}"><h4>{{student.name}}</h4></a>
+
+                <p>Uploaded: {{student.upload_time|date:"d/n/Y, G:i:s"}}</p>
+
+                {% if student.mark %}
+                    <p><b>{{student.mark}}/{{student.answers|length}}</b></p>
+                {% else %}
+                    <p><b>0/{{student.answers|length}}</b></p>
+                {% endif %}
+
+                {% for answer in student.answers %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{answer | safe}}</li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
